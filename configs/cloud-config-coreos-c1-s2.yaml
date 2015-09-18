@@ -19,7 +19,7 @@ coreos:
     name: coreos-c1-s2-etcd 
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
-    discovery: https://discovery.etcd.io/cf24718e69fae0f04d7f115f828fa635
+    discovery: https://discovery.etcd.io/65a995c0f0481bdb596d6c82530c7d00
     # multi-region and multi-cloud deployments need to use $public_ipv4
     advertise-client-urls: http://192.168.222.11:2379,http://192.168.222.11:4001
     initial-advertise-peer-urls: http://192.168.222.11:2380
