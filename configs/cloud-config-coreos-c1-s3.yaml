@@ -42,7 +42,7 @@ coreos:
         Name=enp0s8
 
         [Network]
-        Address=192.168.222.13/24
+        Address=192.168.222.12/24
     - name: down-interfaces.service
       command: start
       content: |
