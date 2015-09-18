@@ -24,22 +24,22 @@ coreos:
       command: start
     - name: fleet.service
       command: start
-    - name: systemd-networkd.service
-      command: stop
-    - name: 00-enp0s8.network
-      runtime: true
-      content: |
-        [Match]
-        Name=enp0s8
-
-        [Network]
-        Address=192.168.222.10/24
-    - name: down-interfaces.service
-      command: start
-      content: |
-        [Service]
-        Type=oneshot
-        ExecStart=/usr/bin/ip link set enp0s8 down
-        ExecStart=/usr/bin/ip addr flush dev enp0s8
-    - name: systemd-networkd.service
-      command: restart
+#    - name: systemd-networkd.service
+#      command: stop
+#    - name: 00-enp0s8.network
+#      runtime: true
+#      content: |
+#        [Match]
+#        Name=enp0s8
+#
+#        [Network]
+#        Address=192.168.222.10/24
+#    - name: down-interfaces.service
+#      command: start
+#      content: |
+#        [Service]
+#        Type=oneshot
+#        ExecStart=/usr/bin/ip link set enp0s8 down
+#        ExecStart=/usr/bin/ip addr flush dev enp0s8
+#    - name: systemd-networkd.service
+#      command: restart
