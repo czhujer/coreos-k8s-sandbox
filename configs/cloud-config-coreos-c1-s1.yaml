@@ -1,0 +1,26 @@
+#cloud-config
+
+hostname: coreos-c1-s1
+
+ssh_authorized_keys:
+  - ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXZKVZMZeapBk17FrO16cAVwy1JfKJ9V14IRW5GzcrRjNOJTPqj/enJ9ILXf2fYG34I3Hl1rKKTeZup5Ljqs5eItBFvhhZTtS9ROi+buIEwEFrAyDIi8DpMoa+qIzpojIgGB0+wa3xuVG6oDsndSYY+WLjAgVWPwqjcHSvPIQWUinZ434N7l7NCGKlJhfL8eLaN4O+0764lk2LJ5Wukbo8pOnPX+V6DSDDCBO8XXBfH0KhaPCh3gKbBnH2NhmG/aDV2pgcxqjWvP/M0cu8WYb8UamUdALNbsaDCLhaXjyD7GkZD0Wn6p1e6A1fironY5P2KEsUcIHkuDb0bbFurSDkno9k9xelnZYA19HHqxg0M5lBsVklvNhja4vXnswUmriaPkyVChfQH4jrSYFpPi6ZfOH2czYbHKHuu/66BpcCS8Fy08C7qxCdNeTMBBNZZvXtVdKV3axvTduJZEr/F448JC9D9ZPnaNHD7I9I6E8QyMQkQih0dSbGrCNgA3JrQ0Qewkc2Aq6joelnzbtNfarKxgWpUu6W4ec8xS0lASJykeIyBZS/f2d5MhpQb+oiKpM7isFa3SAkrNuJnjerHBeb9YnOSHnFHF2SDoa7ynxRF3IUkn/Ee8UJKZPpeHZJqQqK45Da3OPPpRzo1ytEuLH2e8uigA+W22IZ2oRcX2Stuw== czhujer@czhujer-Latitude-E7440
+
+users:
+  - name: "hujer"
+    passwd: "$1$0tZZwRAK$6zINY5ehuumqnR7EEFTsi/"
+    groups:
+      - "sudo"
+      - "docker"
+    ssh-authorized-keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDXZKVZMZeapBk17FrO16cAVwy1JfKJ9V14IRW5GzcrRjNOJTPqj/enJ9ILXf2fYG34I3Hl1rKKTeZup5Ljqs5eItBFvhhZTtS9ROi+buIEwEFrAyDIi8DpMoa+qIzpojIgGB0+wa3xuVG6oDsndSYY+WLjAgVWPwqjcHSvPIQWUinZ434N7l7NCGKlJhfL8eLaN4O+0764lk2LJ5Wukbo8pOnPX+V6DSDDCBO8XXBfH0KhaPCh3gKbBnH2NhmG/aDV2pgcxqjWvP/M0cu8WYb8UamUdALNbsaDCLhaXjyD7GkZD0Wn6p1e6A1fironY5P2KEsUcIHkuDb0bbFurSDkno9k9xelnZYA19HHqxg0M5lBsVklvNhja4vXnswUmriaPkyVChfQH4jrSYFpPi6ZfOH2czYbHKHuu/66BpcCS8Fy08C7qxCdNeTMBBNZZvXtVdKV3axvTduJZEr/F448JC9D9ZPnaNHD7I9I6E8QyMQkQih0dSbGrCNgA3JrQ0Qewkc2Aq6joelnzbtNfarKxgWpUu6W4ec8xS0lASJykeIyBZS/f2d5MhpQb+oiKpM7isFa3SAkrNuJnjerHBeb9YnOSHnFHF2SDoa7ynxRF3IUkn/Ee8UJKZPpeHZJqQqK45Da3OPPpRzo1ytEuLH2e8uigA+W22IZ2oRcX2Stuw== czhujer@czhujer-Latitude-E7440"
+
+coreos:
+  etcd:
+    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
+    # specify the initial size of your cluster with ?size=X
+    discovery: https://discovery.etcd.io/0f9bef2cfe64e8dcddf7e5571224c662
+  units:
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
