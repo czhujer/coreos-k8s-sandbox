@@ -16,6 +16,7 @@ users:
 
 coreos:
   etcd2:
+    name: etcdserver
     # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
     # specify the initial size of your cluster with ?size=X
     discovery: https://discovery.etcd.io/0f9bef2cfe64e8dcddf7e5571224c662
