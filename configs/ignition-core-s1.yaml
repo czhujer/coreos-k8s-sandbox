@@ -23,7 +23,7 @@ storage:
 etcd:
   # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=3
   # specify the initial size of your cluster with ?size=X
-  discovery: https://discovery.etcd.io/ab4b75067e8d55f9d25ef45fb7d871c9
+  discovery: https://discovery.etcd.io/c63219c0da13c7d1715718f0e6874834
   advertise_client_urls:       http://172.23.56.150:2379
   initial_advertise_peer_urls: http://192.168.221.10:2380
   #

@@ -50,7 +50,7 @@
       {
         "dropins": [
           {
-            "contents": "[Service]\nExecStart=\nExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \\\n  --listen-peer-urls=\"http://192.168.221.11:2380\" \\\n  --listen-client-urls=\"http://0.0.0.0:2379\" \\\n  --initial-advertise-peer-urls=\"http://192.168.221.11:2380\" \\\n  --advertise-client-urls=\"http://172.23.56.151:2379\" \\\n  --discovery=\"https://discovery.etcd.io/ab4b75067e8d55f9d25ef45fb7d871c9\"",
+            "contents": "[Service]\nExecStart=\nExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \\\n  --listen-peer-urls=\"http://192.168.221.11:2380\" \\\n  --listen-client-urls=\"http://0.0.0.0:2379\" \\\n  --initial-advertise-peer-urls=\"http://192.168.221.11:2380\" \\\n  --advertise-client-urls=\"http://172.23.56.151:2379\" \\\n  --discovery=\"https://discovery.etcd.io/c63219c0da13c7d1715718f0e6874834\"",
             "name": "20-clct-etcd-member.conf"
           }
         ],
