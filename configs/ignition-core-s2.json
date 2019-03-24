@@ -1,0 +1,62 @@
+{
+  "ignition": {
+    "config": {},
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "2.2.0"
+  },
+  "networkd": {
+    "units": [
+      {
+        "contents": "[Match]\nName=eth0\n\n[Network]\nDNS=172.23.56.145\nAddress=172.23.56.151/28\nGateway=172.23.56.145\n",
+        "name": "00-eth0.network"
+      },
+      {
+        "contents": "[Match]\nName=eth1\n\n[Network]\n#DNS=192.168.221.1\nAddress=192.168.221.11/24\n#Gateway=10.0.0.1\n",
+        "name": "01-eth1.network"
+      }
+    ]
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "passwordHash": "$6$SfuvSSLq$YJe.Qtnglb7Ct2oCSU1qlMWZOmWzGiN.Ue53gLe4rZ6meV9wv6rpt8LZEd4uGBsPqvR/I/UPNRunR4vjSw6jI1",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQRo/P7J0so62IWM9I2ZYc38lUTYZS3u0FH2D6FDrVZFoYk8jzb3zE3SYpCrE20vLekqtJi3Ljzu6OKMG/+2jyN9aAPbOssbQpUjfXya+yuWA6pkB13/usZv/NjXH1PODw2KE8+lei406hLHJvV7J74Y3RMUuKghSXc4POswHXh1hzG6LeuG4DRqDTEUrYb2RUm6VR/OrW9DVnmLmK7t7+aU7opMq0sxX36s8qqdtUqqSPjECtc17S/zrI2GPKovinzyXue0EPebOp4xBMIU24WG9rnQjXASxTW/SCZNg6QcjASCH36zmI7q0eaxsB3JXNmEt/hCbohcn0e0aLemHizPR/x81sYmSFzro1vY+lOBe60BaxF9lScioJ8cDJ/RR2CisLCQVVwUwJjeopENNU4nRauG27H3V92GMHyQQqcihqStFs3JPHyPrstwxOYWHDNNtOoHcuKo9mA3a8zh0t8y82GGbVyG+fTp2lLs/lI72ptY4XptOxSBiTcqw2GjsfmqMUybUOO6Oq4E4ifXBlnkBz55wmpMp5Kt16kKrs9ajSbDlxTiIE1LpGcxE1ZXPcy/7nyKvJyQ3DxLQsq3lmceDYizpcL7wL56em2jeDIJySGB79/QupmIyyMDqFwRP1dK92ZWEYGqxFMkQ0UuhVggGtJPBNUZjont8h3PllOw=="
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "group": {},
+        "path": "/etc/hostname",
+        "user": {},
+        "contents": {
+          "source": "data:,alg-core-s2",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "dropins": [
+          {
+            "contents": "[Service]\nExecStart=\nExecStart=/usr/lib/coreos/etcd-wrapper $ETCD_OPTS \\\n  --listen-peer-urls=\"http://192.168.221.11:2380\" \\\n  --listen-client-urls=\"http://0.0.0.0:2379\" \\\n  --initial-advertise-peer-urls=\"http://192.168.221.11:2380\" \\\n  --advertise-client-urls=\"http://172.23.56.151:2379\" \\\n  --discovery=\"https://discovery.etcd.io/ab4b75067e8d55f9d25ef45fb7d871c9\"",
+            "name": "20-clct-etcd-member.conf"
+          }
+        ],
+        "enable": true,
+        "name": "etcd-member.service"
+      }
+    ]
+  }
+}
