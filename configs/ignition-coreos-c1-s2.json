@@ -1,0 +1,69 @@
+{
+  "ignition": {
+    "config": {},
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "2.2.0"
+  },
+  "networkd": {
+    "units": [
+      {
+        "contents": "[Match]\nName=eth0\n\n[Network]\nDNS=192.168.142.1\nAddress=192.168.142.11/24\nGateway=192.168.142.1\n",
+        "name": "00-eth0.network"
+      }
+    ]
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "passwordHash": "$6$SfuvSSLq$YJe.Qtnglb7Ct2oCSU1qlMWZOmWzGiN.Ue53gLe4rZ6meV9wv6rpt8LZEd4uGBsPqvR/I/UPNRunR4vjSw6jI1",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQRo/P7J0so62IWM9I2ZYc38lUTYZS3u0FH2D6FDrVZFoYk8jzb3zE3SYpCrE20vLekqtJi3Ljzu6OKMG/+2jyN9aAPbOssbQpUjfXya+yuWA6pkB13/usZv/NjXH1PODw2KE8+lei406hLHJvV7J74Y3RMUuKghSXc4POswHXh1hzG6LeuG4DRqDTEUrYb2RUm6VR/OrW9DVnmLmK7t7+aU7opMq0sxX36s8qqdtUqqSPjECtc17S/zrI2GPKovinzyXue0EPebOp4xBMIU24WG9rnQjXASxTW/SCZNg6QcjASCH36zmI7q0eaxsB3JXNmEt/hCbohcn0e0aLemHizPR/x81sYmSFzro1vY+lOBe60BaxF9lScioJ8cDJ/RR2CisLCQVVwUwJjeopENNU4nRauG27H3V92GMHyQQqcihqStFs3JPHyPrstwxOYWHDNNtOoHcuKo9mA3a8zh0t8y82GGbVyG+fTp2lLs/lI72ptY4XptOxSBiTcqw2GjsfmqMUybUOO6Oq4E4ifXBlnkBz55wmpMp5Kt16kKrs9ajSbDlxTiIE1LpGcxE1ZXPcy/7nyKvJyQ3DxLQsq3lmceDYizpcL7wL56em2jeDIJySGB79/QupmIyyMDqFwRP1dK92ZWEYGqxFMkQ0UuhVggGtJPBNUZjont8h3PllOw==",
+          "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAgEA6ewXb3k7dTc/Hrx8Ttz4PZcF4ONtYNdMNF0xRJpEm5Kcpv1QzsTw8dGhCCTbs+1hTXxN3jtNit2R1lPi8WKFKPQySXUsnT9b2qxa9jn1hIeCGF14wgRXsOxMCUG0iwqDan9ENdlSxqxY5hXiHu555G1qpZn4Lc9CqiYlu3k4mYFPEtTLTmRoWFA7RCLh0ZMAo0he3rlX0+nzhGjkAEJNmcJznztUD/71L37YXn6Cs6TC0VCEabQOf2As8qKs08qq7NoQh1DHV75EaJHXo/FBzI2Np+/FA/BfOKeiQKHFxH/lpAY9ThsOTkp6cZyypxv8/Wka5aypvHRrv1bGridOmtCClUHy8VziDiIVkGbztABPt9rp+NFnsr/FCTZ6QECURQVfiFasVj/4Q3uGRwdkNtnG2zPBZOD+x2LEBsOLR4uOYfPl5pFBCtBoKeml/yQkf75Dlvi0+pciOGxlK582UbuIU/jVuD6tIET/89bP/gY3/TDHoWude+fbbd/ZGZvdv13m6pZeOM8v/+36htieH2vRQtndygk99yEy4SbO9ky+ZSmdotqrdi5BEpLevSA4Nggt2VBHSKfUYKoea6Ar/o53A1rMRe1dI0O9idjfSJGvtlvS+6N8j7pTKGzbQW5URUfbXIdK49M3PLcJOTBYqGvGsC2t+x2cnVIijgHZHc0= root@huhuserver-01"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "group": {},
+        "path": "/etc/hostname",
+        "user": {},
+        "contents": {
+          "source": "data:,coreos-c1-s2",
+          "verification": {}
+        },
+        "mode": 420
+      },
+      {
+        "filesystem": "root",
+        "group": {},
+        "path": "/etc/sysctl.d/80-swappiness.conf",
+        "user": {},
+        "contents": {
+          "source": "data:,vm.swappiness%3D10",
+          "verification": {}
+        },
+        "mode": 420
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "contents": "[Unit]\nDescription=Turn on swap\nRequires=create-swapfile.service\nAfter=create-swapfile.service\n\n[Swap]\nWhat=/var/vm/swapfile1\n\n[Install]\nWantedBy=multi-user.target\n",
+        "enabled": true,
+        "name": "var-vm-swapfile1.swap"
+      },
+      {
+        "contents": "[Unit]\nDescription=Create a swapfile\nRequiresMountsFor=/var\nConditionPathExists=!/var/vm/swapfile1\n\n[Service]\nType=oneshot\nExecStart=/usr/bin/mkdir -p /var/vm\nExecStart=/usr/bin/fallocate -l 1024m /var/vm/swapfile1\nExecStart=/usr/bin/chmod 600 /var/vm/swapfile1\nExecStart=/usr/sbin/mkswap /var/vm/swapfile1\nRemainAfterExit=true",
+        "name": "create-swapfile.service"
+      }
+    ]
+  }
+}
