@@ -25,7 +25,11 @@ spec:
       initContainers:
       - name: chown
         image: busybox
-        command: ["ls", "/"]
+        command: ["chown", "-R", "65534:65534", "/prometheus"]
+        volumeMounts:
+        - name: data
+          mountPath: /prometheus
+          subPath: ""
       containers:
       - name: prometheus
         image: prom/prometheus
@@ -43,6 +47,8 @@ spec:
           mountPath: /etc/prometheus/config
         - name: rules
           mountPath: /etc/prometheus/rules
+        - name: data
+          mountPath: /prometheus
       volumes:
       - name: config
         configMap:
@@ -50,3 +56,5 @@ spec:
       - name: rules
         configMap:
           name: prometheus-rules
+      - name: data
+        emptyDir: {}
