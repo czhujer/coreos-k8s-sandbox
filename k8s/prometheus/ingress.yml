@@ -24,3 +24,7 @@ spec:
         backend:
           serviceName: prometheus
           servicePort: 9090
+      - path: /grafana
+        backend:
+          serviceName: grafana
+          servicePort: 80
