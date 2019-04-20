@@ -21,6 +21,9 @@ spec:
         image: grafana/grafana
         ports:
         - containerPort: 3000
+        env:
+          - name: GF_SERVER_ROOT_URL
+            value: '%(protocol)s://%(domain)s/grafana/'
 ---
 kind: Service
 apiVersion: v1
