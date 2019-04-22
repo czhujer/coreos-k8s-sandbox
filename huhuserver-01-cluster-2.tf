@@ -18,22 +18,19 @@ resource "libvirt_volume" "coreos-c2-s1-disk0" {
   size    = "1073741824"
 }
 
+// resource "libvirt_network" "net-1" {
+//   name = "net-1"
+// }
+
 # Define KVM domain to create
 resource "libvirt_domain" "coreos-c2-s1" {
   name   = "coreos-c2-s1"
   memory = "2048"
   vcpu   = 2
 
-#   network_interface {
-#     network_name = "default"
-#   }
-
   network_interface {
     #network_id = "${libvirt_network.net-1.id}"
     network_name = "net-1"
-    #addresses = ["192.168.142.20"]
-    wait_for_lease = false
-    hostname = "master"
   }
 
   disk {
