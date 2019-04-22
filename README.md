@@ -3,9 +3,9 @@
 
 tested on centos 6 + kvm (libvirt)
 
-# creating virtual machines
+## creating virtual machines
 
-## manually
+### manually
 
 * over virt-install
 * * docs https://www.greglangford.co.uk/installing-coreos-kvm-using-virt-install/ 
@@ -14,7 +14,7 @@ tested on centos 6 + kvm (libvirt)
 
 ```
 
-## with terraform
+### with terraform
 
 * install terrafowm (tested Terraform v0.11.13)
 
@@ -23,3 +23,12 @@ tested on centos 6 + kvm (libvirt)
 * run terraform plan/apply
 
 - not ready yet (some bugs with list NICs)
+
+## deploy kubernetes
+
+* over kubespray
+* * https://github.com/kubernetes-sigs/kubespray
+
+## test some workload
+
+* run some apps over kubectl
