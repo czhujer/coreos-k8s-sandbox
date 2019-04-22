@@ -12,12 +12,10 @@ provider "libvirt" {
 }
 
 resource "libvirt_volume" "coreos-c2-s1-disk0" {
-  name = "coreos-c2-s1-disk0.qcow2"
+  name = "coreos-c2-s1-disk0.img"
   pool = "vm_storage"
-  #source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2"
-  #source = "./CentOS-7-x86_64-GenericCloud.qcow2"
-  format = "qcow2"
-  size    = "20"
+  format = "raw"
+  size    = "1073741824"
 }
 
 # Define KVM domain to create
