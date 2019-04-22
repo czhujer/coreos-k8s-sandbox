@@ -19,28 +19,35 @@ resource "libvirt_volume" "coreos-c2-s1-disk0" {
 }
 
 # Define KVM domain to create
-# resource "libvirt_domain" "db1" {
-#   name   = "db1"
-#   memory = "1024"
-#   vcpu   = 1
+resource "libvirt_domain" "coreos-c2-s1" {
+  name   = "coreos-c2-s1"
+  memory = "2048"
+  vcpu   = 2
 
 #   network_interface {
 #     network_name = "default"
 #   }
 
-#   disk {
-#     volume_id = "${libvirt_volume.centos7-qcow2.id}"
-#   }
+  network_interface {
+    #network_id = "${libvirt_network.net-1.id}"
+    network_name = "net-1"
+    #addresses = ["192.168.142.20"]
+    wait_for_lease = false
+    hostname = "master"
+  }
 
-#   console {
-#     type = "pty"
-#     target_type = "serial"
-#     target_port = "0"
-#   }
+  disk {
+    file = "${libvirt_volume.coreos-c2-s1-disk0.id}"
+    // scsi      = true
+  }
 
-#   graphics {
-#     type = "spice"
-#     listen_type = "address"
-#     autoport = true
-#   }
-# }
+  console {
+    type = "pty"
+    target_type = "serial"
+    target_port = "0"
+  }
+
+  // graphics {
+  //   type = "none"
+  // }
+}
